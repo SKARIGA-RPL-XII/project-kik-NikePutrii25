@@ -1,0 +1,136 @@
+.rekap-page {
+    padding: 0;
+}
+
+.rekap-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+.rekap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rekap-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 260px;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid #D0D5DD;
+    border-radius: 8px;
+}
+
+.rekap-search input {
+    border: none;
+    outline: none;
+    flex: 1;
+}
+
+.rekap-filter {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-btn {
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 8px;
+    border: none;
+    background: #E4E7EC;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.rekap-table-wrapper {
+    overflow-x: auto;
+}
+
+.rekap-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rekap-table th {
+    background: #F9FAFB;
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 14px;
+    color: #667085;
+    border-bottom: 1px solid #EAECF0;
+}
+
+.rekap-table td {
+    padding: 16px;
+    border-bottom: 1px solid #F0F1F3;
+    font-size: 14px;
+}
+
+.rekap-table tbody tr:hover {
+    background: #F9FAFB;
+}
+
+.rekap-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.per-page {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.per-page select {
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid #D0D5DD;
+}
+
+.filter-dropdown {
+    position: relative;
+}
+
+.filter-menu {
+    list-style: none;
+    margin: 0;
+    padding: 6px 0;
+
+    position: absolute;
+    top: 46px;
+    left: 0;
+
+    background: #ffffff;
+    border: 1px solid #E4E7EC;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+
+    min-width: 160px;
+    display: none;
+    z-index: 2000;
+}
+
+.filter-menu.show {
+    display: block;
+}
+
+.filter-menu li {
+    list-style: none;
+    padding: 10px 14px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.filter-menu li:hover {
+    background: #F2F4F7;
+}

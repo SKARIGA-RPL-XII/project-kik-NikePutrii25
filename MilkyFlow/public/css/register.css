@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.register-page {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background: url('/images/30937.jpg') no-repeat center center/cover;
+}
+
+.register-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        216.59deg,
+        rgba(0, 0, 114, 0) -14.03%,
+        rgba(30, 58, 138, 0.3) 107.6%
+    );
+}
+
+.register-card {
+    position: absolute;
+    right: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 573px;
+    padding: 40px 38px;
+    border-radius: 36px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    height: 864;
+}
+
+.logo {
+    width: 244px;
+}
+
+.register-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.register-header p {
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-top: 8px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.error-text {
+    color: #e3342f;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.btn-register {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-size: 15px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.login a {
+    color: #1E3A8A;
+    text-decoration: underline;
+}
+
+.error-text {
+    color: #e3342f;
+    font-size: 13px;
+    margin-top: 6px;
+    display: block;
+}
+
+.is-invalid {
+    border: 1px solid #e3342f;
+}
+
+.required {
+    color: #e3342f;
+    font-weight: 600;
+}

@@ -1,0 +1,259 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: #F1F4FA;
+    color: #323232;
+}
+
+.app {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 280px;
+    background: #122560;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-logo {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-logo img {
+    height: 42px;
+}
+
+.menu {
+    list-style: none;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu-item a {
+    height: 48px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    transition: 0.2s ease;
+}
+
+.menu-item a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.menu-item.active a {
+    background: #1E3A8A;
+    color: #ffffff;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    height: 72px;
+    padding: 32px 32px;
+    background: #F1F4FA;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-title {
+    font-family: 'Gabarito', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #323232;
+}
+
+.profile-pill {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    background: #ffffff;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.profile-avatar i {
+    padding: 10px;
+    background: #E6E6E6;
+    border-radius: 50%;
+}
+
+.profile-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.content {
+    padding: 24px 32px;
+}
+
+.page-title {
+    font-family: 'Gabarito', sans-serif;
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 28px;
+}
+
+.stat-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    height: 97px;
+    padding: 20px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 8px;
+}
+
+.stat-card h3 {
+    font-family: 'Gabarito', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #2B2F38;
+}
+
+.stat-card p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #667085;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon i {
+    font-size: 18px;
+}
+
+
+.blue {
+    background: #EAF4FF;
+    color: #2E90FA;
+}
+
+.green {
+    background: #E7F8F0;
+    color: #12B76A;
+}
+
+.orange {
+    background: #FEF4E6;
+    color: #F79009;
+}
+
+.red {
+    background: #FEECEB;
+    color: #F04438;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.panel {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.panel h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.chart-placeholder {
+    height: 320px;
+    border: 1px solid #D0D3D9;
+    border-radius: 8px;
+    background: #F9FAFB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #98A2B3;
+}
+
+.menu-item i {
+    font-size: 18px;
+    width: 22px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    transition: 0.2s ease;
+}
+
+.menu-item a:hover i {
+    color: #ffffff;
+}
+
+.menu-item.active i {
+    color: #ffffff;
+}
+
+.panel-susu, .panel-ternak {
+
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 24px;
+    height: 80%;
+}
+
+.panel-susu canvas {
+    margin-top: 16px;
+    height: 80% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+.panel-ternak canvas {
+    height: 100% !important;
+    width: 80% !important;
+    max-width: 100% !important;
+    margin: 0 auto;
+    padding-top:16px;
+}
+
+.panel canvas#statusSetoranChart {
+    max-width: 260px;
+    max-height: 260px;
+    margin: 0 auto;
+    display: block;
+}
+
