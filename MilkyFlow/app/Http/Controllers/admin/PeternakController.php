@@ -7,117 +7,128 @@ use App\Models\User;
 use App\Models\Peternak;
 use App\Models\KelompokSusu;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class PeternakController extends Controller
 {
-    // ===============================
-    // LIST DATA + SEARCH
-    // ===============================
     public function index(Request $request)
     {
-        $peternak = Peternak::with('user', 'kelompok')
-            ->when($request->search, function ($q) use ($request) {
+
+        $peternak = Peternak::with(['user', 'kelompok'])
+            ->when($request->search_peternak, function ($q) use ($request) {
                 $q->whereHas('user', function ($u) use ($request) {
-                    $u->where('nama', 'like', '%' . $request->search . '%');
+                    $u->where('nama', 'like', '%' . $request->search_peternak . '%');
                 });
+            })
+            ->get();
+
+        $akun = User::where('role', 'users')
+            ->when($request->search_akun, function ($q) use ($request) {
+                $q->where('email', 'like', '%' . $request->search_akun . '%');
             })
             ->get();
 
         $kelompok = KelompokSusu::all();
 
-        return view('admin.peternak.index', compact('peternak', 'kelompok'));
+        return view('admin.peternak.index', compact('peternak', 'akun', 'kelompok'));
     }
 
-    public function search(Request $request)
-    {
-        return redirect()->route('admin.peternak', [
-            'search' => $request->search
-        ]);
-    }
-
-    // ===============================
-    // TAMBAH PETERNAK (MODAL SIMPAN)
-    // ===============================
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-            'no_hp' => 'required',
-            'alamat' => 'required',
-            'id_kelompok' => 'required',
+            'nama'        => 'required|string|max:100',
+            'email'       => 'required|email|unique:users,email',
+            'password'    => 'required|min:6',
+            'no_hp'       => 'required',
+            'alamat'      => 'required',
+            'id_kelompok' => 'required|exists:kelompok_susu,id_kelompok',
         ]);
 
         DB::transaction(function () use ($request) {
 
             $user = User::create([
-                'nama' => $request->nama,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role' => 'users',
+                'nama'        => $request->nama,
+                'email'       => $request->email,
+                'password'    => Hash::make($request->password),
+                'role'        => 'users',
                 'status_akun' => 'aktif',
             ]);
 
             Peternak::create([
-                'id_user' => $user->id,
-                'id_kelompok' => $request->id_kelompok,
-                'alamat' => $request->alamat,
-                'no_hp' => $request->no_hp,
+                'id_user'        => $user->id,
+                'id_kelompok'    => $request->id_kelompok,
+                'alamat'         => $request->alamat,
+                'no_hp'          => $request->no_hp,
                 'tanggal_gabung' => now(),
-                'status_peternak' => 1,
+                'status_peternak'=> 1,
             ]);
         });
 
-        return redirect()->back()
-            ->with('success', 'Data peternak berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Peternak berhasil ditambahkan');
     }
 
-    // ===============================
-    // FORM EDIT (MODAL EDIT)
-    // ===============================
     public function edit($id)
     {
-        $peternak = Peternak::with('user')->findOrFail($id);
+        $peternak = Peternak::with(['user', 'kelompok'])->findOrFail($id);
         return response()->json($peternak);
     }
 
-    // ===============================
-    // UPDATE DATA
-    // ===============================
     public function update(Request $request, $id)
     {
-        $peternak = Peternak::findOrFail($id);
-        $user = $peternak->user;
-
-        $user->update([
-            'nama' => $request->nama,
-            'email' => $request->email,
+        $request->validate([
+            'nama'        => 'required',
+            'email'       => 'required|email',
+            'no_hp'       => 'required',
+            'alamat'      => 'required',
+            'id_kelompok' => 'required|exists:kelompok_susu,id_kelompok',
         ]);
 
-        $peternak->update([
-            'no_hp' => $request->no_hp,
-            'alamat' => $request->alamat,
-        ]);
+        DB::transaction(function () use ($request, $id) {
 
-        return redirect()->back()
-            ->with('success', 'Data peternak berhasil diperbarui');
+            $peternak = Peternak::findOrFail($id);
+            $user = $peternak->user;
+
+            $user->update([
+                'nama'  => $request->nama,
+                'email' => $request->email,
+            ]);
+
+            $peternak->update([
+                'no_hp'       => $request->no_hp,
+                'alamat'      => $request->alamat,
+                'id_kelompok' => $request->id_kelompok,
+            ]);
+        });
+
+        return redirect()->back()->with('success', 'Data peternak berhasil diperbarui');
     }
 
-    // ===============================
-    // HAPUS DATA (MODAL KONFIRMASI)
-    // ===============================
     public function destroy($id)
     {
-        $peternak = Peternak::findOrFail($id);
-        $user = $peternak->user;
+        DB::transaction(function () use ($id) {
+            $peternak = Peternak::findOrFail($id);
+            $user = $peternak->user;
 
-        $peternak->delete();
-        $user->delete();
+            $peternak->delete();
+            $user->delete();
+        });
 
-        return redirect()->back()
-            ->with('success', 'Data peternak berhasil dihapus');
+        return redirect()->back()->with('success', 'Peternak berhasil dihapus');
+    }
+
+    public function toggleStatus(Request $request)
+    {
+        $user = User::findOrFail($request->id);
+
+        $user->status_akun = $user->status_akun === 'aktif'
+            ? 'nonaktif'
+            : 'aktif';
+
+        $user->save();
+
+        return response()->json([
+            'status' => $user->status_akun
+        ]);
     }
 }
