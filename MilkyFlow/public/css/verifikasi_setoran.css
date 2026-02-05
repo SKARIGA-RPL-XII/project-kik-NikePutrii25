@@ -1,0 +1,367 @@
+.setoran-page {
+    padding: 0%;
+}
+
+.setoran-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.setoran-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setoran-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.setoran-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid #d0d5dd;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.setoran-search i {
+    color: #667085;
+    font-size: 14px;
+}
+
+.setoran-search input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    width: 180px;
+}
+
+.setoran-filter {
+    display: flex;
+    gap: 12px;
+}
+
+.setoran-filter input,
+.setoran-filter select {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #d0d5dd;
+    font-size: 14px;
+    outline: none;
+}
+
+.setoran-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.setoran-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.setoran-table thead th {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: #667085;
+    padding: 14px 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.setoran-table tbody td {
+    font-size: 14px;
+    color: #1f2937;
+    padding: 14px 12px;
+    border-bottom: 1px solid #f0f1f3;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge.warning {
+    background: #fff4e5;
+    color: #f79009;
+}
+
+.badge.success {
+    background: #e7f8f0;
+    color: #12b76a;
+}
+
+.badge.danger {
+    background: #feeceb;
+    color: #f04438;
+}
+
+.aksi {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn.approve {
+    background: #e7f8f0;
+    color: #12b76a;
+}
+
+.icon-btn.detail {
+    background: #EAF4FF;
+    color: #2E90FA;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.55);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s ease;
+    z-index: 9998;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.55);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s ease;
+    z-index: 9999;
+}
+
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 24px;
+    width: 520px;
+    max-width: calc(100% - 32px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    animation: modalScale 0.2s ease;
+}
+
+.modal-box.small {
+    width: 420px;
+}
+
+.modal-box.medium {
+    width: 640px;
+}
+
+.modal-center {
+    text-align: center;
+}
+
+@keyframes modalScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #667085;
+}
+
+.modal-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-icon.warning {
+    background: #fff4e5;
+    color: #f79009;
+}
+
+.modal-icon.success {
+    background: #e7f8f0;
+    color: #12b76a;
+}
+
+.modal-icon i {
+    font-size: 24px;
+}
+
+.modal-box h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.modal-box p {
+    font-size: 14px;
+    color: #667085;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.setoran-info {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.setoran-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setoran-top h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.badge-grade {
+    background: #e7f8f0;
+    color: #12b76a;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.setoran-row {
+    display: grid;
+    grid-template-columns: 140px auto;
+    font-size: 14px;
+}
+
+.setoran-row .label {
+    color: #667085;
+}
+
+.setoran-row .value {
+    color: #101828;
+    font-weight: 500;
+}
+
+.form-group textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #d0d5dd;
+    resize: none;
+    font-size: 14px;
+    outline: none;
+}
+
+.modal-action {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.modal-action.center {
+    justify-content: center;
+}
+
+.modal-action.space-between {
+    justify-content: space-between;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #F04438;
+    color: #F04438;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-success {
+    background: #12b76a;
+    color: #ffffff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: #1E3A8A;
+    border: none;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+     justify-content: center;
+}
+
+.btn-danger {
+    background: #f04438;
+    color: #ffffff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
