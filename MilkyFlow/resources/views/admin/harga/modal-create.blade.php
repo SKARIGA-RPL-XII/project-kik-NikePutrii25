@@ -4,22 +4,23 @@
     <div class="modal-box">
         <h3>Tambah Harga</h3>
         <div class="modal-divider"></div>
-        <form id="formCreate">
+        <form id="formCreate" action="{{ route('admin.harga.store') }}" method="POST">
+            @csrf
             <div class="form-grid">
 
                 <div class="form-group">
                     <label>Kelompok Susu <span>*</span></label>
-                    <input type="text" placeholder="Masukkan nama kelompok susu">
+                    <input type="text" name="kelompok_susu" placeholder="Masukkan nama kelompok susu" required>
                 </div>
 
                 <div class="form-group">
                     <label>Harga Per Liter <span>*</span></label>
-                    <input type="text" placeholder="Rp Masukkan Harga">
+                    <input type="text" name="harga_per_liter" placeholder="Rp Masukkan Harga" required>
                 </div>
 
                 <div class="form-group">
                     <label>Tanggal Berlaku <span>*</span></label>
-                    <input type="date" placeholder="DD/MM/YYYY">
+                    <input type="date" name="tanggal_berlaku" placeholder="DD/MM/YYYY" required>
                 </div>
             </div>
             <div class="modal-action">
@@ -59,7 +60,7 @@
     </div>
 </div>
 
-<div class="modal" id="modalConfirm">
+<div class="modal" id="modalConfirmTambah">
     <div class="modal-box small modal-center">
 
         <div class="modal-icon warning">
@@ -76,7 +77,7 @@
             <button type="button" class="btn-outline" onclick="backToTambahHarga()">
                 Batal
             </button>
-            <button type="button" class="btn-primary" onclick="submitHarga()">
+            <button type="button" class="btn-primary" onclick="submitTambahHarga()">
                 Konfirmasi
             </button>
         </div>
@@ -84,7 +85,7 @@
     </div>
 </div>
 
-<div class="modal" id="modalSuccess">
+<div class="modal" id="modalSuccessTambah">
     <div class="modal-box small modal-center">
 
         <div class="modal-icon success">

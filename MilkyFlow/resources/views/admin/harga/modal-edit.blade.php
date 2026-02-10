@@ -4,23 +4,27 @@
         <h3>Edit Data Harga dan Kelompok Susu</h3>
         <div class="modal-divider"></div>
 
-        <form id="formEdit">
+        <form id="formEdit" method="POST">
+            @csrf
+            @method('PUT')
+
+            <input type="hidden" id="editId">
 
             <div class="form-grid">
 
                 <div class="form-group">
                     <label>Kelompok Susu <span>*</span></label>
-                    <input type="text" id="editKelompok" value="Grade A">
+                    <input type="text" name="kelompok_susu" id="editKelompok" required>
                 </div>
 
                 <div class="form-group">
                     <label>Harga Per Liter <span>*</span></label>
-                    <input type="text" id="editHarga" value="6500">
+                    <input type="text" name="harga_per_liter" id="editHarga" required>
                 </div>
 
                 <div class="form-group">
                     <label>Tanggal Berlaku <span>*</span></label>
-                    <input type="date" id="editTglMulai">
+                    <input type="date" name="tanggal_berlaku" id="editTglMulai" required>
                 </div>
             </div>
 
@@ -63,7 +67,7 @@
     </div>
 </div>
 
-<div class="modal" id="modalConfirm">
+<div class="modal" id="modalConfirmEdit">
     <div class="modal-box small modal-center">
 
         <div class="modal-icon warning">
@@ -89,7 +93,7 @@
 </div>
 
 
-<div class="modal" id="modalSuccess">
+<div class="modal" id="modalSuccessEdit">
     <div class="modal-box small modal-center">
 
         <div class="modal-icon success">
