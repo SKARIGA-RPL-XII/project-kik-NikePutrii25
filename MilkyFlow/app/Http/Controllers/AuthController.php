@@ -45,6 +45,10 @@ class AuthController extends Controller
 
         Auth::login($user, $request->has('remember'));
 
+        $user->update([
+            'last_login' => now()
+        ]);
+
         if ($user->role === 'admin') {
             return redirect()->route('admin.dashboard');
         }
@@ -60,9 +64,15 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:100',
+            'nama' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:8|confirmed',
+            'no_hp' => 'required|digits_between:11,12',
+            'alamat' => 'required|string',
+        ], [
+            'email.email' => 'Email harus mengandung karakter @ dan format yang valid.',
+            'password.min' => 'Password minimal 8 karakter.',
+            'no_hp.digits_between' => 'No HP harus terdiri dari 11 sampai 12 angka.',
         ]);
 
         DB::transaction(function () use ($request) {
@@ -76,7 +86,7 @@ class AuthController extends Controller
             ]);
 
             Peternak::create([
-                'id_user' => $user->id_user, // ✅ BUKAN $user->id
+                'id_user' => $user->id_user,
                 'alamat' => $request->alamat,
                 'no_hp' => $request->no_hp,
                 'tanggal_gabung' => now(),

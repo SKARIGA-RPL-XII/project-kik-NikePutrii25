@@ -3,132 +3,141 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\Peternak;
-use App\Models\KelompokSusu;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class PeternakController extends Controller
 {
-    public function index(Request $request)
-    {
-
-        $peternak = Peternak::with(['user', 'kelompok'])
-            ->when($request->search_peternak, function ($q) use ($request) {
-                $q->whereHas('user', function ($u) use ($request) {
-                    $u->where('nama', 'like', '%' . $request->search_peternak . '%');
-                });
-            })
-            ->get();
-
-        $akun = User::where('role', 'users')
-            ->when($request->search_akun, function ($q) use ($request) {
-                $q->where('email', 'like', '%' . $request->search_akun . '%');
-            })
-            ->get();
-
-        $kelompok = KelompokSusu::all();
-
-        return view('admin.peternak.index', compact('peternak', 'akun', 'kelompok'));
-    }
-
     public function store(Request $request)
     {
         $request->validate([
-            'nama'        => 'required|string|max:100',
-            'email'       => 'required|email|unique:users,email',
-            'password'    => 'required|min:6',
-            'no_hp'       => 'required',
-            'alamat'      => 'required',
-            'id_kelompok' => 'required|exists:kelompok_susu,id_kelompok',
+            'nama' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+            'no_hp' => 'required|digits_between:10,12',
+            'alamat' => 'required|string',
+        ], [
+            'nama.required' => 'Nama peternak wajib diisi',
+            'email.required' => 'Email wajib diisi',
+            'email.email' => 'Format email tidak valid',
+            'password.required' => 'Password wajib diisi',
+            'password.min' => 'Password minimal 8 karakter',
+            'no_hp.required' => 'No HP wajib diisi',
+            'no_hp.digits_between' => 'No HP harus 10–12 angka',
+            'alamat.required' => 'Alamat wajib diisi',
         ]);
 
-        DB::transaction(function () use ($request) {
 
+        DB::beginTransaction();
+
+        try {
             $user = User::create([
-                'nama'        => $request->nama,
-                'email'       => $request->email,
-                'password'    => Hash::make($request->password),
-                'role'        => 'users',
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 'users',
                 'status_akun' => 'aktif',
             ]);
 
             Peternak::create([
-                'id_user'        => $user->id,
-                'id_kelompok'    => $request->id_kelompok,
-                'alamat'         => $request->alamat,
-                'no_hp'          => $request->no_hp,
+                'id_user' => $user->id_user,
+                'no_hp' => $request->no_hp,
+                'alamat' => $request->alamat,
+                'status_peternak' => 1,
                 'tanggal_gabung' => now(),
-                'status_peternak'=> 1,
             ]);
-        });
 
-        return redirect()->back()->with('success', 'Peternak berhasil ditambahkan');
+            DB::commit();
+
+            return response()->json(['success' => true]);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
-
-    public function edit($id)
+    public function index()
     {
-        $peternak = Peternak::with(['user', 'kelompok'])->findOrFail($id);
-        return response()->json($peternak);
-    }
+        $peternaks = Peternak::with('user')->get();
+        $users = User::where('role', 'users')->get();
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nama'        => 'required',
-            'email'       => 'required|email',
-            'no_hp'       => 'required',
-            'alamat'      => 'required',
-            'id_kelompok' => 'required|exists:kelompok_susu,id_kelompok',
-        ]);
-
-        DB::transaction(function () use ($request, $id) {
-
-            $peternak = Peternak::findOrFail($id);
-            $user = $peternak->user;
-
-            $user->update([
-                'nama'  => $request->nama,
-                'email' => $request->email,
-            ]);
-
-            $peternak->update([
-                'no_hp'       => $request->no_hp,
-                'alamat'      => $request->alamat,
-                'id_kelompok' => $request->id_kelompok,
-            ]);
-        });
-
-        return redirect()->back()->with('success', 'Data peternak berhasil diperbarui');
+        return view(
+            'admin.peternak.index',
+            compact('peternaks', 'users')
+        );
     }
 
     public function destroy($id)
     {
-        DB::transaction(function () use ($id) {
-            $peternak = Peternak::findOrFail($id);
-            $user = $peternak->user;
+        DB::beginTransaction();
 
-            $peternak->delete();
-            $user->delete();
-        });
+        try {
+            $peternak = Peternak::with('user')->findOrFail($id);
 
-        return redirect()->back()->with('success', 'Peternak berhasil dihapus');
+            $peternak->user->delete();
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true
+            ]);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
-
-    public function toggleStatus(Request $request)
+    public function update(Request $request, $id)
     {
-        $user = User::findOrFail($request->id);
+        $peternak = Peternak::findOrFail($id);
+        $user = $peternak->user;
 
-        $user->status_akun = $user->status_akun === 'aktif'
-            ? 'nonaktif'
-            : 'aktif';
-
-        $user->save();
-
-        return response()->json([
-            'status' => $user->status_akun
+        $request->validate([
+            'email' => 'nullable|email',
+            'no_hp' => 'nullable|digits_between:10,12',
+            'nama' => 'nullable|string',
+            'alamat' => 'nullable|string',
+        ], [
+            'email.email' => 'Format email tidak valid',
+            'no_hp.digits_between' => 'No HP harus 10–12 digit',
         ]);
+
+        DB::beginTransaction();
+
+        try {
+            $user->nama = $request->nama;
+            $user->email = $request->email;
+
+            if ($request->filled('password')) {
+                $user->password = Hash::make($request->password);
+            }
+
+            $user->save();
+
+            $peternak->update([
+                'no_hp' => $request->no_hp,
+                'alamat' => $request->alamat,
+            ]);
+
+            DB::commit();
+
+            return response()->json(['success' => true]);
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
+
 }
