@@ -1,0 +1,221 @@
+:root {
+    --primary-navy: #1E3A8A;
+    --success-bg: #E7F8F0;
+    --success-text: #059669;
+    --warning-bg: #FFFBEB;
+    --warning-text: #D97706;
+    --text-dark: #1E293B;
+    --text-muted: #64748B;
+    --danger-bg: #FEE2E2;
+    --danger-text: #B91C1C;
+}
+
+body {
+    background-color: #F8FAFC;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--text-dark);
+}
+
+.container-wide {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.navbar {
+    padding: 1rem 0;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+.nav-link {
+    color: #64748B !important;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary-navy) !important;
+}
+
+.active-link {
+    color: var(--primary-navy) !important;
+    font-weight: 700 !important;
+    position: relative;
+}
+
+.active-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 15%;
+    width: 70%;
+    height: 2px;
+    background-color: var(--primary-navy);
+    border-radius: 2px;
+}
+
+.btn-figma {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 8px;
+    width: auto;
+    min-width: 129px;
+    height: 48px;
+    background: var(--primary-navy);
+    border-radius: 12px;
+    color: #FFFFFF;
+    border: none;
+    font-weight: 600;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn-figma:hover {
+    background: #162a63;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.badge-figma {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 10px;
+    height: 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.status-green {
+    background: var(--success-bg);
+    color: var(--success-text);
+}
+
+.status-yellow {
+    background: var(--warning-bg);
+    color: var(--warning-text);
+}
+
+.status-red {
+    background: var(--danger-bg);
+    color: var(--danger-text);
+}
+
+.hero-banner {
+    background: linear-gradient(rgba(30, 58, 138, 0.85), rgba(30, 58, 138, 0.85)),
+        url('https://images.unsplash.com/photo-1500595046743-cd271d694d30?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    padding: 3rem;
+    color: white;
+}
+
+.card-stat {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 1.5rem;
+    height: 100%;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+}
+
+.card-stat:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.05);
+    border-color: var(--primary-navy);
+}
+
+.icon-shape {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.bg-blue-soft { background-color: #EBF8FF; color: #3182CE; }
+.bg-cyan-soft { background-color: #E6FFFA; color: #319795; }
+.bg-purple-soft { background-color: #FAF5FF; color: #805AD5; }
+.bg-green-soft { background-color: #F0FFF4; color: #38A169; }
+
+.card-table {
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.table thead th {
+    background: #F8FAFC;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 1rem;
+    border: none;
+}
+
+.table tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid #F1F5F9;
+    font-size: 0.9rem;
+}
+
+.btn-light {
+    background: #f8fafc;
+    transition: 0.2s;
+}
+
+.btn-light:hover {
+    background: #e2e8f0;
+    transform: scale(1.05);
+}
+
+.modal-header .btn-close {
+    font-size: 0.8rem;
+}
+
+.bg-danger-subtle {
+    background-color: #fee2e2 !important;
+}
+
+.dropdown-menu .dropdown-item {
+    font-size: 0.85rem;
+    transition: all 0.2s ease-in-out;
+    border-radius: 8px;
+    margin: 2px 0;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #f1f5f9;
+    color: var(--primary-navy);
+    padding-left: 1rem; 
+}
+
+.dropdown-menu {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-toggle::after {
+    display: none;
+}

@@ -121,3 +121,19 @@
 .is-invalid {
     border: 1px solid #e3342f;
 }
+
+.password-hint {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #9ca3af; /* abu-abu */
+    transition: all 0.2s ease;
+}
+
+.password-hint.valid {
+    color: #16a34a; /* hijau */
+}
+
+.password-hint.valid::before {
+    content: "✔ ";
+}

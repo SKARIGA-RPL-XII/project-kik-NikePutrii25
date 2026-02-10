@@ -29,7 +29,6 @@
             </div>
         </div>
 
-        <!-- BODY -->
         <div class="preview-body">
             <div class="preview-paper">
 

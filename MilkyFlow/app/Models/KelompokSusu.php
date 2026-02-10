@@ -10,13 +10,10 @@ class KelompokSusu extends Model
     protected $primaryKey = 'id_kelompok';
     public $timestamps = false;
 
-    protected $fillable = [
-        'nama_kelompok',
-        'keterangan',
-    ];
+    protected $fillable = ['nama_kelompok', 'keterangan'];
 
-    public function peternak()
+    public function harga()
     {
-        return $this->hasMany(Peternak::class, 'id_kelompok');
+        return $this->hasMany(HargaSusu::class, 'id_kelompok');
     }
 }

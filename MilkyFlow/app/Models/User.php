@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    protected $primaryKey = 'id_user'; // SESUAI DB
+    protected $table = 'users';
+    protected $primaryKey = 'id_user';
     public $incrementing = true;
-    protected $keyType = 'int';
-
+    protected $keyType = 'int'; 
     protected $fillable = [
         'nama',
         'email',
         'password',
         'role',
         'status_akun',
+        'last_login',
+        'id_kelompok'
     ];
 
     protected $hidden = [
@@ -25,9 +25,9 @@ class User extends Authenticatable
     ];
 
     public $timestamps = true;
+
     public function peternak()
     {
-        return $this->hasOne(Peternak::class, 'id_user');
+        return $this->hasOne(Peternak::class, 'id_user', 'id_user');
     }
-
 }

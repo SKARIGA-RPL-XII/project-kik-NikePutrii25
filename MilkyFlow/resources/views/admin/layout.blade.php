@@ -2,6 +2,7 @@
 <html lang="id">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <title>Admin | MilkyFlow</title>
     <link
@@ -26,7 +27,7 @@
                 </li>
 
                 <li class="menu-item {{ request()->routeIs('admin.peternak') ? 'active' : '' }}">
-                    <a href="{{ route('admin.peternak') }}">
+                    <a href="{{ route('admin.peternak.index') }}">
                         <i class="fa-solid fa-users"></i>
                         <span>Data & Akun Peternak</span>
                     </a>

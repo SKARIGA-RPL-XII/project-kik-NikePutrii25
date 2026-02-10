@@ -45,7 +45,12 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>Password <span class="required">*</span></label>
-                        <input type="password" name="password" required>
+                        <input type="password" name="password" id="passwordInput" required>
+
+                        <small id="passwordHint" class="password-hint">
+                            Minimal 8 karakter
+                        </small>
+
                         @error('password')
                             <small class="error-text">{{ $message }}</small>
                         @enderror
@@ -82,6 +87,27 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordInput = document.getElementById('passwordInput');
+            const passwordHint = document.getElementById('passwordHint');
+
+            if (!passwordInput || !passwordHint) {
+                console.log('passwordInput / passwordHint tidak ditemukan');
+                return;
+            }
+
+            passwordInput.addEventListener('input', function () {
+                if (this.value.length >= 8) {
+                    passwordHint.style.display = 'none';
+                } else {
+                    passwordHint.style.display = 'block';
+                    passwordHint.textContent = 'Minimal 8 karakter';
+                }
+            });
+        });
+    </script>
 
 </body>
 
