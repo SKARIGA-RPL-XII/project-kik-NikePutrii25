@@ -6,43 +6,35 @@
         <h3>Tambah Data Peternak</h3>
         <div class="modal-divider"></div>
 
-        <form id="formCreate">
+        <form id="formCreate" action="{{ route('admin.peternak.store') }}" method="POST">
+            @csrf
 
             <div class="form-grid">
 
                 <div class="form-group">
                     <label>Nama Peternak <span>*</span></label>
-                    <input type="text" placeholder="Masukkan nama peternak">
-                </div>
-
-                <div class="form-group">
-                    <label>Kelompok Susu <span>*</span></label>
-                    <select>
-                        <option value="">Pilih kelompok susu</option>
-                        <option>A</option>
-                        <option>B</option>
-                        <option>C</option>
-                    </select>
+                    <input type="text" name="nama" placeholder="Masukkan nama peternak">
                 </div>
 
                 <div class="form-group">
                     <label>Email <span>*</span></label>
-                    <input type="email" placeholder="email@example.com">
+                    <input type="email" name="email" placeholder="email@example.com">
                 </div>
 
                 <div class="form-group">
                     <label>No HP <span>*</span></label>
-                    <input type="text" placeholder="08xxxxxxxxxx">
+                    <input type="text" name="no_hp" placeholder="08xxxxxxxxxx" maxlength="12"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
                 </div>
 
-                <div class="form-group full">
+                <div class="form-group">
                     <label>Password <span>*</span></label>
-                    <input type="password" placeholder="Minimal 8 karakter">
+                    <input type="password" name="password" placeholder="Minimal 8 karakter">
                 </div>
 
                 <div class="form-group full">
                     <label>Alamat <span>*</span></label>
-                    <textarea placeholder="Masukkan alamat lengkap"></textarea>
+                    <textarea name="alamat" placeholder="Masukkan alamat lengkap"></textarea>
                 </div>
 
             </div>
@@ -51,7 +43,7 @@
                 <button type="button" class="btn-outline" onclick="openConfirmCancel()">
                     Batal
                 </button>
-                <button type="button" class="btn-primary" onclick="openConfirmSave()">
+                <button type="button" class="btn-primary" onclick="openConfirmSaveCreate()">
                     Simpan
                 </button>
             </div>

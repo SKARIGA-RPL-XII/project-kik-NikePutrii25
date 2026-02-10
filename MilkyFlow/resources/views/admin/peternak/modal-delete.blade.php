@@ -1,4 +1,3 @@
-<!-- ========== MODAL DELETE ========== -->
 <div class="modal" id="modalDelete">
     <div class="modal-box small modal-center">
 
@@ -9,21 +8,14 @@
         <h3>Konfirmasi Hapus Data</h3>
         <p>
             Anda yakin ingin menghapus data peternak ini?<br>
-            <strong>Tindakan ini tidak dapat dibatalkan.</strong>
+            <b>Tindakan ini tidak dapat dibatalkan.</b>
         </p>
 
         <div class="modal-action center">
-            <button
-                type="button"
-                class="btn-outline"
-                onclick="closeDelete()">
+            <button class="btn-outline" onclick="closeAllPeternakModal()">
                 Batal
             </button>
-
-            <button
-                type="button"
-                class="btn-danger"
-                onclick="confirmDelete()">
+            <button class="btn-danger" onclick="confirmDelete()">
                 Konfirmasi
             </button>
         </div>

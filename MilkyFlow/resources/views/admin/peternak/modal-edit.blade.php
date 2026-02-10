@@ -1,51 +1,42 @@
-<div class="modal-overlay" id="modalOverlay"></div>
-
 <div class="modal" id="modalEdit">
     <div class="modal-box">
 
         <h3>Edit Data Peternak</h3>
         <div class="modal-divider"></div>
 
-        <form id="formEdit">
+        <form id="formEdit" onsubmit="return false;">
+            @csrf
 
             <div class="form-grid">
 
                 <div class="form-group">
-                    <label>Nama Peternak <span>*</span></label>
-                    <input type="text" id="editNama" value="Suyanto">
+                    <label>Nama Peternak </label>
+                    <input type="text" name="nama" id="editNama">
                 </div>
 
                 <div class="form-group">
-                    <label>Kelompok Susu <span>*</span></label>
-                    <select id="editKelompok">
-                        <option>A</option>
-                        <option>B</option>
-                        <option>C</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Email <span>*</span></label>
-                    <input type="email" id="editEmail" value="suyanto@mail.com">
-                </div>
-
-                <div class="form-group">
-                    <label>No HP <span>*</span></label>
-                    <input type="text" id="editHp" value="081234567890">
+                    <label>Email </label>
+                    <input type="email" name="email" id="editEmail">
                 </div>
 
                 <div class="form-group full">
-                    <label>Alamat <span>*</span></label>
-                    <textarea id="editAlamat">Ds. Sumber Rejo</textarea>
+                    <label>No HP </label>
+                    <input type="text" name="no_hp" id="editHp" placeholder="08xxxxxxxxxx" maxlength="12"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+                </div>
+
+                <div class="form-group full">
+                    <label>Alamat </label>
+                    <textarea name="alamat" id="editAlamat"></textarea>
                 </div>
 
             </div>
 
             <div class="modal-action">
-                <button type="button" class="btn-outline" onclick="openConfirmCancel('edit')">
+                <button type="button" class="btn-outline" onclick="openConfirmCancel()">
                     Batal
                 </button>
-                <button type="button" class="btn-primary" onclick="openConfirmSave('edit')">
+                <button type="button" class="btn-primary" onclick="openConfirmSaveEdit()">
                     Update
                 </button>
             </div>
@@ -54,6 +45,7 @@
 
     </div>
 </div>
+
 
 <div class="modal" id="modalCancel">
     <div class="modal-box small modal-center">
@@ -69,7 +61,7 @@
         </p>
 
         <div class="modal-action center">
-            <button type="button" class="btn-outline" onclick="backToCreate()">
+            <button type="button" class="btn-outline" onclick="cancelConfirm()">
                 Batal
             </button>
             <button type="button" class="btn-primary" onclick="cancelAndBackToList()">
@@ -79,7 +71,7 @@
 
     </div>
 </div>
-<div class="modal" id="modalConfirm">
+<div class="modal" id="modalConfirmUpdate">
     <div class="modal-box small modal-center">
 
         <div class="modal-icon warning">
@@ -93,10 +85,10 @@
         </p>
 
         <div class="modal-action center">
-            <button type="button" class="btn-outline" onclick="backToCreate()">
+            <button type="button" class="btn-outline" onclick="cancelConfirm()">
                 Batal
             </button>
-            <button type="button" class="btn-primary" onclick="submitForm()">
+            <button type="button" class="btn-primary" onclick="handleConfirm()">
                 Konfirmasi
             </button>
         </div>
@@ -104,7 +96,7 @@
     </div>
 </div>
 
-<div class="modal" id="modalSuccess">
+<div class="modal" id="modalSuccessUpdate">
     <div class="modal-box small modal-center">
 
         <div class="modal-icon success">

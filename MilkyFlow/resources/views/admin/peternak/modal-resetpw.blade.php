@@ -7,24 +7,17 @@
 
         <h3>Reset Password Akun</h3>
         <p>
-            Anda yakin ingin mereset password untuk akun<br>
-            dengan email:<br>
+            Anda yakin ingin mereset password untuk akun dengan email:<br>
             <strong id="resetEmail">email@email.com</strong>?<br><br>
-            Password baru akan dikirimkan ke email tersebut.
+            Sistem akan mengirimkan <b>link reset password</b> ke email tersebut.
         </p>
 
         <div class="modal-action center">
-            <button
-                type="button"
-                class="btn-outline"
-                onclick="closeReset()">
+            <button type="button" class="btn-outline" onclick="closeReset()">
                 Batal
             </button>
 
-            <button
-                type="button"
-                class="btn-primary"
-                onclick="confirmReset()">
+            <button type="button" class="btn-primary" onclick="confirmReset()">
                 Reset Password
             </button>
         </div>
@@ -40,8 +33,9 @@
             <i class="fa-solid fa-check"></i>
         </div>
         <p>
-            Password baru telah berhasil dikirim ke<br>
-            <strong id="resetSuccessEmail">email@email.com</strong>.
+            Link reset password berhasil dikirim ke:<br>
+            <strong id="resetSuccessEmail">email@email.com</strong>.<br><br>
+            Silakan cek inbox atau folder spam.
         </p>
 
     </div>

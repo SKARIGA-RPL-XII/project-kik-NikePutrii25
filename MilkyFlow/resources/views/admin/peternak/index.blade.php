@@ -1,142 +1,137 @@
 @extends('admin.layout')
 
 @section('page_id', 'peternak')
+
 @section('page_title', 'Data dan Akun Peternak')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/peternak.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/peternak.css') }}">
 @endpush
 
 @section('content')
 
-<div class="peternak-card">
+    <div class="peternak-card">
 
-    <div class="peternak-header">
+        <div class="peternak-header">
 
-        <div class="peternak-tabs">
-            <button class="tab active" data-tab="data">Data Peternak</button>
-            <button class="tab" data-tab="akun">Akun Peternak</button>
-        </div>
+            <div class="peternak-tabs">
+                <button class="tab active">Data Peternak</button>
+                <button class="tab">Akun Peternak</button>
+            </div>
 
-        <div class="peternak-action">
-            <form method="GET">
+            <div class="peternak-action">
                 <div class="search-box">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text"
-                        name="{{ request('search_akun') ? 'search_akun' : 'search_peternak' }}"
-                        value="{{ request('search_peternak') ?? request('search_akun') }}"
-                        placeholder="Search...">
+                    <input type="text" id="searchInput" placeholder="Search...">
                 </div>
-            </form>
 
-            <button class="btn-primary" onclick="openModal('modalCreate')">
-                <i class="fa-solid fa-plus"></i> Tambah Peternak
-            </button>
+                <button class="btn-primary" id="btnTambah" onclick="openModal('modalCreate')">
+                    <i class="fa-solid fa-plus"></i>
+                    Tambah Peternak
+                </button>
+            </div>
+
         </div>
 
-    </div>
+        <div class="tab-content active">
 
-    <div class="tab-content active" id="tab-data">
-        <div class="table-wrapper">
-            <table class="peternak-table">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Alamat</th>
-                        <th>No HP</th>
-                        <th>Kelompok</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($peternak as $p)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ optional($p->user)->nama ?? '-' }}</td>
-                        <td>{{ $p->alamat }}</td>
-                        <td>{{ $p->no_hp }}</td>
-                        <td>{{ optional($p->kelompok)->nama_kelompok ?? '-' }}</td>
-                        <td>
-                            <span class="badge {{ $p->status_peternak ? 'success' : 'danger' }}">
-                                {{ $p->status_peternak ? 'Aktif' : 'Nonaktif' }}
-                            </span>
-                        </td>
-                        <td class="aksi">
-                            <button class="icon-btn edit"
-                                onclick="editPeternak('{{ $p->id }}')">
-                                <i class="fa-solid fa-pen"></i>
-                            </button>
-                            <button class="icon-btn delete"
-                                onclick="hapusPeternak('{{ $p->id }}')">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="text-center">Data kosong</td>
-                    </tr>
-                    @endforelse
-                </tbody>
+            <div class="table-wrapper">
+                <table class="peternak-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Alamat</th>
+                            <th>No HP</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($peternaks as $item)
+                            <tr class="peternak-row {{ $item->status_peternak == 0 ? 'row-disabled' : '' }}"
+                                data-id="{{ $item->id_peternak }}">
+                                <td>{{ $loop->iteration }}</td>
+                                <td class="col-nama">{{ $item->user->nama }}</td>
+                                <td class="col-alamat">{{ $item->alamat }}</td>
+                                <td class="col-hp">{{ $item->no_hp }}</td>
+                                <td>
+                                    @if ($item->status_peternak == 1)
+                                        <span class="badge success">Aktif</span>
+                                    @else
+                                        <span class="badge">Nonaktif</span>
+                                    @endif
+                                </td>
+                                <td class="aksi">
+                                    <button type="button" class="icon-btn edit" data-id="{{ $item->id_peternak }}"
+                                        data-nama="{{ $item->user->nama }}" data-email="{{ $item->user->email }}"
+                                        data-hp="{{ $item->no_hp }}" data-alamat="{{ $item->alamat }}"
+                                        onclick="openEditFromButton(this)">
+                                        <i class="fa-solid fa-pen" style="pointer-events:none;"></i>
+                                    </button>
+                                    <button type="button" class="icon-btn delete" data-id="{{ $item->id_peternak }}"
+                                        onclick="openDeleteModal(this)">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" style="text-align:center;">Data peternak belum ada</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+            </div>
             </table>
         </div>
+
     </div>
 
-    <div class="tab-content" id="tab-akun">
+    <div class="tab-content">
+
         <div class="table-wrapper">
             <table class="peternak-table">
                 <thead>
-                    <tr>
+                    <tr class="akun-row">
                         <th>No</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th>Status</th>
+                        <th>Terakhir Login</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($akun as $u)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $u->email }}</td>
-                        <td>{{ ucfirst($u->role) }}</td>
-                        <td>
-                            <div class="toggle-wrapper">
-                                <label class="switch">
-                                    <input type="checkbox"
-                                        {{ $u->status_akun === 'aktif' ? 'checked' : '' }}
-                                        onchange="toggleStatus('{{ $u->id }}')">
-                                    <span class="slider"></span>
-                                </label>
-                                <span class="toggle-text {{ $u->status_akun === 'aktif' ? 'active' : '' }}">
-                                    {{ ucfirst($u->status_akun) }}
-                                </span>
-                            </div>
-                        </td>
-                        <td>
-                            <button class="reset-link"
-                                onclick="openReset('{{ $u->email }}')">
-                                Reset Password
-                            </button>
-                        </td>
-                    </tr>
+                    @forelse ($users as $user)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>User</td>
+                                    <td> {{ $user->last_login? \Carbon\Carbon::parse($user->last_login)->diffForHumans(): '-' }}</td>
+                                    <td>
+                                        <button type="button" class="reset-link" data-id="{{ $user->id_user }}"
+                                            data-email="{{ $user->email }}" onclick="openResetModal(this)">
+                                            Reset Password
+                                        </button>
+                                    </td>
+                                </tr>
                     @empty
-                    <tr>
-                        <td colspan="5" class="text-center">Data akun kosong</td>
-                    </tr>
+                        <tr>
+                            <td colspan="6" style="text-align:center;">Data akun belum ada</td>
+                        </tr>
                     @endforelse
+
                 </tbody>
             </table>
         </div>
+
     </div>
 
-</div>
+    </div>
+
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/peternak.js') }}"></script>
+    <script src="{{ asset('js/peternak.js') }}"></script>
 @endpush
 
 @include('admin.peternak.modal-create')
