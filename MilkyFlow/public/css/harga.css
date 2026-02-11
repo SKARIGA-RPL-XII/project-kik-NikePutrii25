@@ -260,13 +260,18 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
-    margin-top: 16px;
+    margin-bottom: 16px;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+    margin-bottom: 16px;
 }
 
 .form-group label {
@@ -279,21 +284,31 @@
     color: #F04438;
 }
 
-.form-group input {
-    height: 44px;
-    padding: 0 14px;
-
+.form-group input,
+.form-group select,
+.form-group textarea {
+    height: 48px;
+    padding: 0 12px;
     border-radius: 8px;
-    border: 1px solid #D0D5DD;
-
-    font-family: 'Inter', sans-serif;
+    border: 1px solid #ddd;
     font-size: 14px;
-    color: #101828;
-
-    outline: none;
+    transition: 0.2s ease;
 }
 
-.form-group input:focus {
+.form-group input[type="date"] {
+    height: 48px;
+}
+
+.form-group textarea {
+    height: auto;
+    min-height: 90px;
+    padding: 12px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
     border-color: #1E3A8A;
 }
 

@@ -1,7 +1,7 @@
 <div class="modal" id="modalEdit">
     <div class="modal-box">
 
-        <h3>Edit Data Harga dan Kelompok Susu</h3>
+        <h3>Edit Harga</h3>
         <div class="modal-divider"></div>
 
         <form id="formEdit" method="POST">
@@ -11,7 +11,6 @@
             <input type="hidden" id="editId">
 
             <div class="form-grid">
-
                 <div class="form-group">
                     <label>Kelompok Susu <span>*</span></label>
                     <input type="text" name="kelompok_susu" id="editKelompok" required>
@@ -21,15 +20,20 @@
                     <label>Harga Per Liter <span>*</span></label>
                     <input type="text" name="harga_per_liter" id="editHarga" required>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label>Tanggal Berlaku <span>*</span></label>
-                    <input type="date" name="tanggal_berlaku" id="editTglMulai" required>
-                </div>
+            <div class="form-group full">
+                <label>Tanggal Berlaku <span>*</span></label>
+                <input type="date" name="tanggal_berlaku" id="editTglMulai" required>
+            </div>
+
+            <div class="form-group full">
+                <label>Keterangan</label>
+                <textarea name="keterangan" id="editKeterangan" rows="3"></textarea>
             </div>
 
             <div class="modal-action">
-                <button type="button" class="btn-outline" onclick="openConfirmCancelHargaEdit()">
+                <button type="button" class="btn-outline" onclick="openConfirmCancelHarga()">
                     Batal
                 </button>
                 <button type="button" class="btn-primary" onclick="openConfirmSaveHargaEdit()">
@@ -38,7 +42,6 @@
             </div>
 
         </form>
-
     </div>
 </div>
 

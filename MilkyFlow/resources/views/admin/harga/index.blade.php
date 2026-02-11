@@ -46,14 +46,16 @@
                                 <td>{{ $item->kelompok->nama_kelompok }}</td>
                                 <td>Rp {{ number_format($item->harga_per_liter, 0, ',', '.') }}</td>
                                 <td>{{ date('d-m-Y', strtotime($item->tanggal_berlaku)) }}</td>
+                                <td>{{ $item->kelompok->keterangan ?? '-' }}</td>
                                 <td class="aksi">
 
-                                    <button class="icon-btn edit" onclick="openEditHarga(
-                                        '{{ $item->id_harga }}',
-                                        '{{ $item->kelompok->nama_kelompok }}',
-                                        '{{ $item->harga_per_liter }}',
-                                        '{{ $item->tanggal_berlaku }}'
-                                        )">
+                                    <button class="icon-btn edit" onclick='openEditHarga(
+                                        "{{ $item->id_harga }}",
+                                        "{{ $item->kelompok->nama_kelompok }}",
+                                        "{{ $item->harga_per_liter }}",
+                                        "{{ $item->tanggal_berlaku }}",
+                                        "{{ optional($item->kelompok)->keterangan }}"
+                                    )'>
                                         <i class="fa-solid fa-pen"></i>
                                     </button>
 

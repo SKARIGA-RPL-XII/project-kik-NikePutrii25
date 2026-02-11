@@ -43,19 +43,22 @@ function cancelHarga() {
     closeAllHargaModal();
 }
 
-function openEditHarga(id, kelompok, harga, tanggal) {
+function openEditHarga(id, kelompok, harga, tanggal, keterangan) {
+
     closeAllHargaModal();
 
     document.getElementById('editId').value = id;
     document.getElementById('editKelompok').value = kelompok;
     document.getElementById('editHarga').value = formatRupiah(harga);
     document.getElementById('editTglMulai').value = tanggal;
+    document.getElementById('editKeterangan').value = keterangan ?? '';
 
     document.getElementById('formEdit').action =
         `/admin/harga-susu/${id}`;
 
     showModal('modalEdit');
 }
+
 
 function openConfirmSaveHargaEdit() {
     closeAllHargaModal();
@@ -113,3 +116,33 @@ document.addEventListener('input', function (e) {
         e.target.value = formatRupiah(value);
     }
 });
+
+function openConfirmCancelHarga() {
+    closeAllHargaModal();
+    showModal('modalCancel');
+}
+
+function backToTambahHarga() {
+    closeAllHargaModal();
+    showModal('modalTambah');
+}
+
+function cancelHarga() {
+    closeAllHargaModal();
+
+    document.getElementById('formCreate').reset();
+}
+
+function openConfirmCancelHargaEdit() {
+    closeAllHargaModal();
+    showModal('modalCancelEdit');
+}
+
+function backToEditHarga() {
+    closeAllHargaModal();
+    showModal('modalEdit');
+}
+
+function cancelEditHarga() {
+    closeAllHargaModal();
+}

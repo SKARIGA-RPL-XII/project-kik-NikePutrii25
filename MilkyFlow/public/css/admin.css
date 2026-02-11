@@ -257,3 +257,80 @@ body {
     display: block;
 }
 
+.figma-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    margin-top: 20px;
+}
+
+.pagination-info {
+    font-family: 'Montserrat';
+    font-size: 13px;
+    color: #667085;
+}
+
+.pagination-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #667085;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.page.active {
+    background: #F1F4FA;
+    color: #1E3A8A;
+}
+
+.page:hover {
+    background: #F1F4FA;
+}
+
+.nav-arrow {
+    font-size: 18px;
+    text-decoration: none;
+    color: #1E3A8A;
+    padding: 0 6px;
+}
+
+.nav-disabled {
+    color: #B9BDC7;
+    padding: 0 6px;
+}
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.per-page {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #667085;
+}
+
+.per-page select {
+    border: 1px solid #B9BDC7;
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: 13px;
+    background: white;
+}

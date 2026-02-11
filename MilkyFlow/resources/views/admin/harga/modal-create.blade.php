@@ -17,12 +17,18 @@
                     <label>Harga Per Liter <span>*</span></label>
                     <input type="text" name="harga_per_liter" placeholder="Rp Masukkan Harga" required>
                 </div>
+            </div>
 
-                <div class="form-group">
+            <div class="form-group full">
                     <label>Tanggal Berlaku <span>*</span></label>
                     <input type="date" name="tanggal_berlaku" placeholder="DD/MM/YYYY" required>
-                </div>
             </div>
+
+            <div class="form-group full">
+                    <label>Keterangan</label>
+                    <textarea type="text" name="keterangan">Masukkan Keterangan</textarea>
+            </div>
+
             <div class="modal-action">
                 <button type="button" class="btn-outline" onclick="openConfirmCancelHarga()">
                     Batal

@@ -26,9 +26,9 @@ class HargaController extends Controller
             'tanggal_berlaku' => 'required|date',
         ]);
 
-        $kelompok = KelompokSusu::firstOrCreate(
+        $kelompok = KelompokSusu::updateOrCreate(
             ['nama_kelompok' => $request->kelompok_susu],
-            ['keterangan' => '-']
+            ['keterangan' => $request->keterangan]
         );
 
         $harga = str_replace(['.', ','], '', $request->harga_per_liter);
@@ -58,6 +58,14 @@ class HargaController extends Controller
         ]);
 
         $harga = (int) str_replace(['.', ','], '', $request->harga_per_liter);
+
+        $hargaLama = HargaSusu::findOrFail($id);
+
+        $kelompok = KelompokSusu::find($hargaLama->id_kelompok);
+
+        $kelompok->update([
+            'keterangan' => $request->keterangan
+        ]);
 
         $hargaSusu = HargaSusu::findOrFail($id);
 
