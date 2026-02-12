@@ -14,10 +14,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        $data = User::where('role', 'users')->get();
-        return view('akun.index', compact('data'));
-    }
+        $data = User::where('role', 'users')
+            ->orderBy('id_user', 'desc')
+            ->paginate(5);
 
+        return view('admin.akun.index', compact('data'));
+    }
     public function toggleStatus($id)
     {
         $user = User::findOrFail($id);

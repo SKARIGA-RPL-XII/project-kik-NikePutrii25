@@ -61,15 +61,19 @@ class PeternakController extends Controller
             ], 500);
         }
     }
-    public function index()
+    public function index(Request $request)
     {
-        $peternaks = Peternak::with('user')->get();
-        $users = User::where('role', 'users')->get();
+        $perPage = $request->get('per_page', 5);
 
-        return view(
-            'admin.peternak.index',
-            compact('peternaks', 'users')
-        );
+        $peternaks = Peternak::with('user')
+            ->paginate($perPage)
+            ->withQueryString();
+
+        $users = User::where('role', 'users')
+            ->paginate($perPage)
+            ->withQueryString();
+
+        return view('admin.peternak.index', compact('peternaks', 'users'));
     }
 
     public function destroy($id)

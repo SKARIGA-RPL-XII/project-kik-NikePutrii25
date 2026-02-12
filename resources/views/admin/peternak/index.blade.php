@@ -83,6 +83,23 @@
                     </tbody>
             </div>
             </table>
+            <div class="pagination-wrapper">
+
+                <div class="per-page">
+                    <span>Show</span>
+
+                    <select onchange="changePerPage(this.value)">
+                        <option value="5" {{ request('per_page') == 5 ? 'selected' : '' }}>5</option>
+                        <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                        <option value="15" {{ request('per_page') == 15 ? 'selected' : '' }}>15</option>
+                    </select>
+
+                    <span>per page</span>
+                </div>
+
+                {{ $peternaks->appends(request()->query())->links('components.pagination-figma') }}
+
+            </div>
         </div>
 
     </div>
@@ -102,26 +119,42 @@
                 </thead>
                 <tbody>
                     @forelse ($users as $user)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>User</td>
-                                    <td> {{ $user->last_login? \Carbon\Carbon::parse($user->last_login)->diffForHumans(): '-' }}</td>
-                                    <td>
-                                        <button type="button" class="reset-link" data-id="{{ $user->id_user }}"
-                                            data-email="{{ $user->email }}" onclick="openResetModal(this)">
-                                            Reset Password
-                                        </button>
-                                    </td>
-                                </tr>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>User</td>
+                            <td> {{ $user->last_login ? \Carbon\Carbon::parse($user->last_login)->diffForHumans() : '-' }}</td>
+                            <td>
+                                <button type="button" class="reset-link" data-id="{{ $user->id_user }}"
+                                    data-email="{{ $user->email }}" onclick="openResetModal(this)">
+                                    Reset Password
+                                </button>
+                            </td>
+                        </tr>
                     @empty
                         <tr>
                             <td colspan="6" style="text-align:center;">Data akun belum ada</td>
                         </tr>
                     @endforelse
-
                 </tbody>
             </table>
+            <div class="pagination-wrapper">
+
+                <div class="per-page">
+                    <span>Show</span>
+
+                    <select onchange="changePerPage(this.value)">
+                        <option value="5" {{ request('per_page') == 5 ? 'selected' : '' }}>5</option>
+                        <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                        <option value="15" {{ request('per_page') == 15 ? 'selected' : '' }}>15</option>
+                    </select>
+
+                    <span>per page</span>
+                </div>
+
+                {{ $users->appends(['tab' => 'akun'])->links('components.pagination-figma') }}
+
+            </div>
         </div>
 
     </div>
@@ -133,6 +166,43 @@
 @push('scripts')
     <script src="{{ asset('js/peternak.js') }}"></script>
 @endpush
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const activeTab = urlParams.get('tab');
+
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.tab-content');
+
+        if (activeTab === 'akun') {
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+
+            tabs[1].classList.add('active');
+            contents[1].classList.add('active');
+
+        } else {
+
+            tabs[0].classList.add('active');
+            contents[0].classList.add('active');
+        }
+    });
+</script>
+
+<script>
+function changePerPage(value) {
+
+    const url = new URL(window.location.href);
+
+    url.searchParams.set('per_page', value);
+    url.searchParams.set('page', 1);
+
+    window.location.href = url.toString();
+}
+</script>
 
 @include('admin.peternak.modal-create')
 @include('admin.peternak.modal-edit')

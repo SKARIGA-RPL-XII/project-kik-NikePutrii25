@@ -6,8 +6,10 @@ use App\Http\Controllers\Admin\PeternakController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\HargaController;
 use App\Http\Controllers\Admin\UserResetController;
+use App\Http\Controllers\Admin\VerifikasiController;
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserSetoranController;
+use App\Http\Controllers\User\UserRekapController;
 
 //AUTH
 Route::get('/login', function () {
@@ -64,10 +66,13 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::delete('/harga-susu/{id}', [HargaController::class, 'destroy'])
         ->name('destroy');
 
+    //MENU VERIFIKASI
+    Route::get('/verifikasi', [VerifikasiController::class, 'index'])
+        ->name('verifikasi');
+    Route::put('/verifikasi/{id}', [VerifikasiController::class, 'verifikasi'])
+        ->name('verifikasi.update');
+
     //MENU LAIN
-    Route::get('/verifikasi', function () {
-        return view('admin.verifikasi.index');
-    })->name('verifikasi');
 
     Route::get('/rekap', function () {
         return view('admin.rekap.index');
@@ -98,11 +103,9 @@ Route::prefix('users')
 
         Route::put('/setoran/{id_setoran}', [UserSetoranController::class, 'update'])
             ->name('setoran.update');
-        /* Route::get('/rekap', [UserRekapController::class, 'index'])
-            ->name('rekap');
 
-        Route::get('/cetak-rekap', [UserRekapController::class, 'cetak'])
-            ->name('cetak-rekap');*/
+        Route::get('/rekap', [UserRekapController::class, 'index'])
+            ->name('rekap');
 
         Route::get('/profile', function () {
             return view('users.profile');
