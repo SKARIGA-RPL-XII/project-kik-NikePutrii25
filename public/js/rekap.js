@@ -1,45 +1,56 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.querySelectorAll('.filter-btn').forEach(btn => {
 
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', function (e) {
-            e.stopPropagation();
+btn.addEventListener('click', function(){
 
-            const target = this.dataset.target;
-            const menu = document.getElementById(target);
+const target = this.dataset.target;
 
-            document.querySelectorAll('.filter-menu').forEach(m => {
-                if (m !== menu) m.classList.remove('show');
-            });
+document
+.querySelectorAll('.filter-menu')
+.forEach(menu => menu.classList.remove('show'));
 
-            menu.classList.toggle('show');
-        });
-    });
+document
+.getElementById(target)
+.classList.toggle('show');
 
-    document.querySelectorAll('.filter-menu li').forEach(item => {
-        item.addEventListener('click', function () {
-            const text = this.innerText;
-            const menu = this.closest('.filter-menu');
+});
 
-            if (menu.id === 'filterWaktu') {
-                document.getElementById('labelWaktu').innerText = text;
-            }
+});
 
-            if (menu.id === 'filterBulan') {
-                document.getElementById('labelBulan').innerText = text;
-            }
 
-            if (menu.id === 'filterTahun') {
-                document.getElementById('labelTahun').innerText = text;
-            }
+document.querySelectorAll('#filterWaktu li').forEach(item => {
+item.addEventListener('click', function(){
 
-            menu.classList.remove('show');
-        });
-    });
+document.getElementById('labelWaktu').innerText = this.innerText;
+document.getElementById('inputWaktu').value = this.dataset.value;
 
-    document.addEventListener('click', function () {
-        document.querySelectorAll('.filter-menu').forEach(m => {
-            m.classList.remove('show');
-        });
-    });
+});
+});
+
+document.querySelectorAll('#filterBulan li').forEach(item => {
+item.addEventListener('click', function(){
+
+document.getElementById('labelBulan').innerText = this.innerText;
+document.getElementById('inputBulan').value = this.dataset.value;
+
+});
+});
+
+document.querySelectorAll('#filterTahun li').forEach(item => {
+item.addEventListener('click', function(){
+
+document.getElementById('labelTahun').innerText = this.innerText;
+document.getElementById('inputTahun').value = this.dataset.value;
+
+});
+});
+
+
+document.addEventListener('click', function(e){
+
+if(!e.target.closest('.filter-dropdown')){
+document
+.querySelectorAll('.filter-menu')
+.forEach(menu => menu.classList.remove('show'));
+}
 
 });

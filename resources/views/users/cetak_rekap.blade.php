@@ -10,7 +10,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
-        /* --- UI Browser Preview (Hanya muncul di layar) --- */
         .pdf-toolbar {
             position: fixed; top: 0; left: 0; right: 0;
             height: 55px; background: #323639;
@@ -32,10 +31,9 @@
             background-color: #525659;
             margin: 0; padding-top: 80px; padding-bottom: 50px;
             display: flex; justify-content: center;
-            font-family: 'Courier New', Courier, monospace; /* Font mesin ketik otentik */
+            font-family: 'Courier New', Courier, monospace; 
         }
 
-        /* --- Desain Kertas A4 --- */
         #element-to-download {
             background-color: white;
             width: 210mm;
@@ -52,7 +50,6 @@
         .info-table { width: 100%; margin-bottom: 25px; font-size: 14px; }
         .info-table td { padding: 4px 0; }
 
-        /* Pembagian Tabel 2 Kolom */
         .table-container { display: flex; gap: 15px; margin-bottom: 30px; }
         .data-table { width: 50%; border-collapse: collapse; font-size: 11px; }
         .data-table th, .data-table td { border: 1px solid #000; padding: 5px; text-align: center; }
@@ -68,7 +65,6 @@
             text-transform: uppercase;
         }
 
-        /* Pengaturan saat dicetak manual (Ctrl+P) */
         @media print {
             .no-print { display: none; }
             body { background: white; padding: 0; }

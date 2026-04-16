@@ -102,9 +102,10 @@
                                             <td class="fw-bold">{{ $item->jumlah_setor }}</td>
                                             <td>{{ $item->kadar_air ? $item->kadar_air . '%' : '-' }}</td>
                                             <td class="text-center">
-                                                <span class="badge-figma
-                                                    {{ $item->status_setor == 'menunggu' ? 'status-yellow' :
-                                                    ($item->status_setor == 'diterima' ? 'status-green' : 'status-red') }}">
+                                                <span
+                                                    class="badge-figma
+                                                                        {{ $item->status_setor == 'menunggu' ? 'status-yellow' :
+                            ($item->status_setor == 'diterima' ? 'status-green' : 'status-red') }}">
                                                     {{ ucfirst(string: $item->status_setor) }}
                                                 </span>
                                             </td>
@@ -151,8 +152,8 @@
                         </div>
                         <div class="col-12">
                             <label class="form-label small fw-bold text-muted">JUMLAH (LITER)</label>
-                            <input type="number" step="0.1" class="form-control bg-light border-0" name="jumlah_setor"
-                                placeholder="Contoh: 15.5" required>
+                            <input type="number" step="0.01" min="0" class="form-control bg-light border-0"
+                                name="jumlah_setor" placeholder="Contoh: 15.55" required>
                         </div>
                         <div class="col-12">
                             <label class="form-label small fw-bold text-muted">KADAR AIR % (OPSIONAL)</label>

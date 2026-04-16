@@ -11,69 +11,89 @@
 
         <div class="rekap-card">
 
-            <div class="rekap-header">
-                <div class="rekap-search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search...">
-                </div>
+            <form method="GET" action="{{ route('admin.rekap') }}">
 
-                <div class="rekap-filter">
+                <div class="rekap-header">
 
-                    <div class="filter-dropdown">
-                        <button class="filter-btn" data-target="filterWaktu">
-                            <span id="labelWaktu">Pagi</span>
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </button>
-
-                        <ul class="filter-menu" id="filterWaktu">
-                            <li data-value="Pagi">Pagi</li>
-                            <li data-value="Sore">Sore</li>
-                        </ul>
+                    <div class="rekap-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Search...">
                     </div>
 
+                    <div class="rekap-filter">
+
+                        <input type="hidden" name="waktu" id="inputWaktu" value="{{ request('waktu') }}">
+                        <input type="hidden" name="bulan" id="inputBulan" value="{{ request('bulan') ?? now()->month }}">
+                        <input type="hidden" name="tahun" id="inputTahun" value="{{ request('tahun') ?? now()->year }}">
+
                         <div class="filter-dropdown">
-                            <button class="filter-btn" data-target="filterBulan">
-                                <span id="labelBulan">Pilih Bulan</span>
+                            <button type="button" class="filter-btn" data-target="filterWaktu">
+                                <span id="labelWaktu">
+                                    {{ request('waktu') ? ucfirst(request('waktu')) : 'Semua Waktu' }}
+                                </span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+
+                            <ul class="filter-menu" id="filterWaktu">
+                                <li data-value="">Semua</li>
+                                <li data-value="pagi">Pagi</li>
+                                <li data-value="sore">Sore</li>
+                            </ul>
+                        </div>
+
+                        <div class="filter-dropdown">
+                            <button type="button" class="filter-btn" data-target="filterBulan">
+                                <span id="labelBulan">
+                                    {{ \Carbon\Carbon::create()->month(request('bulan') ?? now()->month)->format('F') }}
+                                </span>
                                 <i class="fa-solid fa-chevron-down"></i>
                             </button>
 
                             <ul class="filter-menu" id="filterBulan">
-                                <li>Januari</li>
-                                <li>Februari</li>
-                                <li>Maret</li>
-                                <li>April</li>
-                                <li>Mei</li>
-                                <li>Juni</li>
-                                <li>Juli</li>
-                                <li>Agustus</li>
-                                <li>September</li>
-                                <li>Oktober</li>
-                                <li>November</li>
-                                <li>Desember</li>
+                                <li data-value="1">Januari</li>
+                                <li data-value="2">Februari</li>
+                                <li data-value="3">Maret</li>
+                                <li data-value="4">April</li>
+                                <li data-value="5">Mei</li>
+                                <li data-value="6">Juni</li>
+                                <li data-value="7">Juli</li>
+                                <li data-value="8">Agustus</li>
+                                <li data-value="9">September</li>
+                                <li data-value="10">Oktober</li>
+                                <li data-value="11">November</li>
+                                <li data-value="12">Desember</li>
                             </ul>
                         </div>
 
                         <div class="filter-dropdown">
-                            <button class="filter-btn" data-target="filterTahun">
-                                <span id="labelTahun">Pilih Tahun</span>
+                            <button type="button" class="filter-btn" data-target="filterTahun">
+                                <span id="labelTahun">
+                                    {{ request('tahun') ?? now()->year }}
+                                </span>
                                 <i class="fa-solid fa-chevron-down"></i>
                             </button>
 
                             <ul class="filter-menu" id="filterTahun">
-                                <li>2022</li>
-                                <li>2023</li>
-                                <li>2024</li>
-                                <li>2025</li>
-                                <li>2026</li>
+                                @for($i = now()->year; $i >= 2022; $i--)
+                                    <li data-value="{{ $i }}">{{ $i }}</li>
+                                @endfor
                             </ul>
                         </div>
 
-                </div>
+                        <button type="submit" class="btn-primary">
+                            Terapkan
+                        </button>
 
-            </div>
+                        <a href="{{ route('admin.rekap') }}" class="btn-reset">
+                            Reset
+                        </a>
+                    </div>
+                </div>
+            </form>
 
             <div class="rekap-table-wrapper">
                 <table class="rekap-table">
+
                     <thead>
                         <tr>
                             <th>No</th>
@@ -84,27 +104,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><strong>Suyanto</strong></td>
-                            <td>Pagi</td>
-                            <td>3.450</td>
-                            <td>28</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><strong>Suyanto</strong></td>
-                            <td>Pagi</td>
-                            <td>3.450</td>
-                            <td>28</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><strong>Suyanto</strong></td>
-                            <td>Pagi</td>
-                            <td>3.450</td>
-                            <td>28</td>
-                        </tr>
+                        @forelse($data as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    <strong>
+                                        {{ $item->peternak->user->nama ?? '-' }}
+                                    </strong>
+                                </td>
+                                <td>
+                                    <div class="rekap-waktu">
+                                        <span class="badge-waktu">
+                                            {{ ucfirst($item->waktu_setor) }}
+                                        </span>
+
+                                        <span class="rekap-tanggal">
+                                            {{ \Carbon\Carbon::parse($item->tanggal)->format('d F Y') }}
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{ number_format($item->total_liter, 2) }} L
+                                </td>
+                                <td>
+                                    {{ $item->jumlah_setoran }} kali
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" style="text-align:center;">
+                                    Tidak ada data rekap
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -113,5 +145,5 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/rekap.js') }}"></script>
+    <script src="{{ asset('js/rekap.js') }}"></script>
 @endpush

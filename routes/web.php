@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\HargaController;
 use App\Http\Controllers\Admin\UserResetController;
 use App\Http\Controllers\Admin\VerifikasiController;
+use App\Http\Controllers\Admin\RekapController;
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserSetoranController;
 use App\Http\Controllers\User\UserRekapController;
@@ -74,9 +75,8 @@ Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
 
     //MENU LAIN
 
-    Route::get('/rekap', function () {
-        return view('admin.rekap.index');
-    })->name('rekap');
+    Route::get('rekap', [RekapController::class,'index'])
+    ->name('rekap');
 
     Route::get('/laporan', function () {
         return view('admin.laporan.index');

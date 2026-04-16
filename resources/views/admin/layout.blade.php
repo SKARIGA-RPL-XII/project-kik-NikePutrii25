@@ -19,42 +19,42 @@
         <aside class="sidebar">
             <div class="sidebar-logo"> <img src="{{ asset('images/logofiks2.png') }}" alt="MilkyFlow"> </div>
             <ul class="menu">
-                <li class="menu-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                     <a href="{{ route('admin.dashboard') }}">
                         <i class="fa-solid fa-chart-line"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
-                <li class="menu-item {{ request()->routeIs('admin.peternak') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->routeIs('peternak') ? 'active' : '' }}">
                     <a href="{{ route('admin.peternak.index') }}">
                         <i class="fa-solid fa-users"></i>
                         <span>Data & Akun Peternak</span>
                     </a>
                 </li>
 
-                <li class="menu-item {{ request()->routeIs('admin.verifikasi') ? 'active' : '' }}">
-                    <a href="{{ route('admin.verifikasi') }}">
-                        <i class="fa-solid fa-circle-check"></i>
-                        <span>Verifikasi Setoran</span>
-                    </a>
-                </li>
-
-                <li class="menu-item {{ request()->routeIs('admin.harga') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->routeIs('harga') ? 'active' : '' }}">
                     <a href="{{ route('admin.harga') }}">
                         <i class="fa-solid fa-money-bill-wave"></i>
                         <span>Harga dan Kelompok Susu</span>
                     </a>
                 </li>
 
-                <li class="menu-item {{ request()->routeIs('admin.rekap') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->routeIs('verifikasi') ? 'active' : '' }}">
+                    <a href="{{ route('admin.verifikasi') }}">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Verifikasi Setoran</span>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ request()->routeIs('rekap') ? 'active' : '' }}">
                     <a href="{{ route('admin.rekap') }}">
                         <i class="fa-solid fa-chart-column"></i>
                         <span>Rekapitulasi Setoran</span>
                     </a>
                 </li>
 
-                <li class="menu-item {{ request()->routeIs('admin.laporan') ? 'active' : '' }}">
+                <li class="menu-item {{ request()->routeIs('laporan') ? 'active' : '' }}">
                     <a href="{{ route('admin.laporan') }}">
                         <i class="fa-solid fa-file-lines"></i>
                         <span>Laporan Pembayaran</span>

@@ -12,6 +12,8 @@
     position: relative;
 }
 
+/* ================= HEADER ================= */
+
 .rekap-header {
     display: flex;
     justify-content: space-between;
@@ -27,79 +29,42 @@
     padding: 0 14px;
     border: 1px solid #D0D5DD;
     border-radius: 8px;
+    background: #fff;
 }
 
 .rekap-search input {
     border: none;
     outline: none;
     flex: 1;
+    font-size: 14px;
 }
+
+/* ================= FILTER ================= */
 
 .rekap-filter {
     display: flex;
+    align-items: center;
     gap: 10px;
+}
+
+.filter-dropdown {
+    position: relative;
 }
 
 .filter-btn {
     height: 40px;
     padding: 0 14px;
     border-radius: 8px;
-    border: none;
-    background: #E4E7EC;
+    border: 1px solid #D0D5DD;
+    background: #F9FAFB;
     font-size: 14px;
     cursor: pointer;
-}
-
-.rekap-table-wrapper {
-    overflow-x: auto;
-}
-
-.rekap-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.rekap-table th {
-    background: #F9FAFB;
-    padding: 14px 16px;
-    text-align: left;
-    font-size: 14px;
-    color: #667085;
-    border-bottom: 1px solid #EAECF0;
-}
-
-.rekap-table td {
-    padding: 16px;
-    border-bottom: 1px solid #F0F1F3;
-    font-size: 14px;
-}
-
-.rekap-table tbody tr:hover {
-    background: #F9FAFB;
-}
-
-.rekap-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.per-page {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 14px;
 }
 
-.per-page select {
-    height: 32px;
-    border-radius: 6px;
-    border: 1px solid #D0D5DD;
-}
-
-.filter-dropdown {
-    position: relative;
-}
+/* dropdown menu */
 
 .filter-menu {
     list-style: none;
@@ -133,4 +98,108 @@
 
 .filter-menu li:hover {
     background: #F2F4F7;
+}
+
+.btn-primary {
+    height: 40px;
+    padding: 0 18px;
+    border-radius: 8px;
+    border: none;
+    background: #1E3A8A;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.btn-primary:hover {
+    background: #17327a;
+}
+
+.btn-reset {
+    height: 40px;
+    padding: 0 18px;
+    border-radius: 8px;
+    border: none;
+    background: #F2F4F7;
+    color: #344054;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.btn-reset:hover {
+    background: #E4E7EC;
+}
+
+.rekap-table-wrapper {
+    overflow-x: auto;
+}
+
+.rekap-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rekap-table th {
+    background: #F9FAFB;
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 14px;
+    color: #667085;
+    border-bottom: 1px solid #EAECF0;
+}
+
+.rekap-table td {
+    padding: 16px;
+    border-bottom: 1px solid #F0F1F3;
+    font-size: 14px;
+}
+
+.rekap-table tbody tr:hover {
+    background: #F9FAFB;
+}
+
+
+.rekap-waktu {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.badge-waktu {
+    background: #EEF4FF;
+    color: #1D4ED8;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    width: fit-content;
+}
+
+.rekap-tanggal {
+    font-size: 12px;
+    color: #667085;
+}
+
+.rekap-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.per-page {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.per-page select {
+    height: 32px;
+    border-radius: 6px;
+    border: 1px solid #D0D5DD;
 }
